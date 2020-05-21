@@ -1,0 +1,57 @@
+MODEL:
+  FEATURE_DIM: 18
+  RESUME_EPOCH: 0
+  NO_FEATURE_ONLY_RGB: False
+  LOSS: "L1"
+  USE_DEPTH: True
+  USE_PC_NORM: False
+  MUL_POINTNET: True
+  UNET_LAYERS: [32, 64,180,450,450, 180,64,32,26]
+  POINTNET_NPOINTS: [512, 80, 20, 8]
+  POINTNET_RADIUS : [[0.02, 0.08], [0.08, 0.15], [0.15, 0.4], [0.4, 1.2]]
+  NO_MODIFY: False 
+
+
+
+
+INPUT:
+  SIZE_TRAIN: [800,600]
+  SIZE_TEST: [800,600]
+  NEAR_FAR_SIZE: [[1.0, 8.5, 0.8]]
+  USE_RGB: True
+  RGB_MAP: False
+  USE_DIR: "MAPS" 
+
+DATASETS:
+  TRAIN: ["/data/public/share/xzq_dataset_new"]
+  FRAME_NUM: [200]
+  MASK: True
+  SHIFT: 40
+  MAXRATION: -0.5
+  ROTATION: 10.0
+  #Holes: ["/data/wmy/NR/sfs/sport1_sfs_rotation_2_21_3","/data/wmy/NR/sfs/sport2_sfs_5","/data/wmy/NR/sfs/sport3_sfs_tmpn_5","None","/data/wmy/NR/sfs/basketball_ps_sfs_5"]
+  #RANDOM_NOISY: 0.0
+  SKIP_STEP : [1] 
+  IGNORE_FRAMES: [[]]
+
+
+SOLVER:
+  OPTIMIZER_NAME: "Adam"
+  BASE_LR: 0.00005
+  WEIGHT_DECAY: 0.000003
+  IMS_PER_BATCH: 2
+  WARMUP_FACTOR: 0.333
+  WARMUP_ITERS: 3
+  WARMUP_METHOD: "linear"
+  MAX_EPOCHS: 30
+  CHECKPOINT_PERIOD: 1
+
+  START_ITERS: 5
+  END_ITERS: 20
+  LR_SCALE: 0.2
+
+  LOSS_WHOLE_IMAGE: False
+
+
+
+OUTPUT_DIR: "/data/wmy/NR/training/xzq_ROI_3"

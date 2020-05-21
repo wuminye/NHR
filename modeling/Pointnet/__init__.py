@@ -1,0 +1,1 @@
+from .pointnet2_msg import get_pn2_model
