@@ -1,4 +1,8 @@
 # encoding: utf-8
+"""
+@author:  sherlock
+@contact: sherlockliao01@gmail.com
+"""
 
 import logging
 import torch
@@ -13,7 +17,7 @@ import time
 
 
 
-def create_supervised_trainer(model, optimizer, loss_fn, use_cuda=True, loss_whole_img = False, swriter = None):
+def create_supervised_trainer(model, optimizer, loss_fn, use_cuda=True, loss_whole_img = False, swriter = None,use_mask = True):
 
     if use_cuda:
         model.cuda()
@@ -33,6 +37,8 @@ def create_supervised_trainer(model, optimizer, loss_fn, use_cuda=True, loss_who
     
     def _update(engine, batch):
 
+        
+
         #torch.cuda.synchronize()
         start_time = time.time()
 
@@ -50,6 +56,8 @@ def create_supervised_trainer(model, optimizer, loss_fn, use_cuda=True, loss_who
         inds = batch[6]
         rgbs = batch[8].cuda()
 
+    
+        #print(batch[-1])
         res,depth,features,dir_in_world,rgb,m_point_features = model(in_points, K, T,
                             near_far_max_splatting_size, num_points, rgbs, inds)
 
@@ -60,17 +68,21 @@ def create_supervised_trainer(model, optimizer, loss_fn, use_cuda=True, loss_who
         
 
         depth_mask = depth[:,0:1,:,:].detach().clone()
-        depth_mask = depth_mask + target[:,3:4,:,:]
+        if use_mask:
+            depth_mask = depth_mask + target[:,3:4,:,:]
         depth_mask[depth_mask>0] = 1
         depth_mask = torch.clamp(depth_mask,0,1.0)
 
-        if not loss_whole_img:
+        if not loss_whole_img and use_mask:
             cur_mask = (target[:,4:5,:,:]*depth_mask).repeat(1,3,1,1)
         else:
-            cur_mask = (target[:,4:5,:,:]).repeat(1,3,1,1)
+            if use_mask:
+                cur_mask = (target[:,4:5,:,:]).repeat(1,3,1,1)
+            else:
+                cur_mask = (target[:,3:4,:,:]).repeat(1,3,1,1)
 
 
-
+        #print(cur_mask.size(),(target[:,3:4,:,:]*depth_mask).repeat(1,3,1,1).size(),(target[:,3:4,:,:]).size())
         target[:,0:3,:,:] = target[:,0:3,:,:]*cur_mask
 
 
@@ -83,19 +95,21 @@ def create_supervised_trainer(model, optimizer, loss_fn, use_cuda=True, loss_who
         vis_rgb = res[0,0:3,:,:].detach().clone()
         vis_rgb[cur_mask[0]<0.1] += 0.5
 
+        if use_mask:
+            render_mask = res[0][3:4,:,:].detach().clone()
+            render_mask[target[0,4:5,:,:]<0.1] += 0.5
 
-        render_mask = res[0][3:4,:,:].detach().clone()
-        render_mask[target[0,4:5,:,:]<0.1] += 0.5
-
-        render_mask = torch.clamp(render_mask,0,1.0)
+            render_mask = torch.clamp(render_mask,0,1.0)
 
         
-        res[:,3,:,:] = res[:,3,:,:] * target[:,4,:,:]
+            res[:,3,:,:] = res[:,3,:,:] * target[:,4,:,:]
 
                 
         
-        
-        loss1, loss2, loss3 = loss_fn(res, target[:,0:4,:,:])
+        if use_mask:
+            loss1, loss2, loss3 = loss_fn(res, target[:,0:4,:,:])
+        else:
+            loss1, loss2, loss3 = loss_fn(res, target[:,0:3,:,:])
 
 
         l = loss1 + loss2
@@ -132,8 +146,9 @@ def create_supervised_trainer(model, optimizer, loss_fn, use_cuda=True, loss_who
         swriter.add_image('vis/rendered', res[0,0:3,:,:], iters)
         swriter.add_image('vis/GT', target[0][0:3,:,:], iters)
         swriter.add_image('vis/depth', depth[0], iters)
-        swriter.add_image('vis/GT_Mask', target[0][3:4,:,:], iters)
-        swriter.add_image('vis/rendered_mask', render_mask, iters)
+        if use_mask:
+            swriter.add_image('vis/GT_Mask', target[0][3:4,:,:], iters)
+            swriter.add_image('vis/rendered_mask', render_mask, iters)
 
         if engine.state.rgb_project:
             swriter.add_image('vis/RGB_PCPR', features[0], iters)
@@ -162,7 +177,7 @@ def do_train(
 
     logger = logging.getLogger("rendering_model.train")
     logger.info("Start training")
-    trainer = create_supervised_trainer(model, optimizer, loss_fn, loss_whole_img = cfg.SOLVER.LOSS_WHOLE_IMAGE,swriter = swriter )
+    trainer = create_supervised_trainer(model, optimizer, loss_fn, loss_whole_img = cfg.SOLVER.LOSS_WHOLE_IMAGE,swriter = swriter,use_mask = cfg.DATASETS.MASK )
 
 
    
@@ -208,7 +223,30 @@ def do_train(
         scheduler.step()
 
 
-                
+                    
+
+
+    '''
+    @trainer.on(Events.EPOCH_COMPLETED)
+    def log_training_results(engine):
+        evaluator.run(train_loader)
+        metrics = evaluator.state.metrics
+        avg_accuracy = metrics['accuracy']
+        avg_loss = metrics['ce_loss']
+        logger.info("Training Results - Epoch: {} Avg accuracy: {:.3f} Avg Loss: {:.3f}"
+                    .format(engine.state.epoch, avg_accuracy, avg_loss))
+
+    if val_loader is not None:
+        @trainer.on(Events.EPOCH_COMPLETED)
+        def log_validation_results(engine):
+            evaluator.run(val_loader)
+            metrics = evaluator.state.metrics
+            avg_accuracy = metrics['accuracy']
+            avg_loss = metrics['ce_loss']
+            logger.info("Validation Results - Epoch: {} Avg accuracy: {:.3f} Avg Loss: {:.3f}"
+                        .format(engine.state.epoch, avg_accuracy, avg_loss)
+                        )
+    '''
 
 
     # adding handlers using `trainer.on` decorator API

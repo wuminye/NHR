@@ -15,6 +15,7 @@ class PCPRender(torch.nn.Module):
         self.use_mask = use_mask
         self.use_depth = use_depth
         self.use_rgb_map = cfg.INPUT.RGB_MAP
+        self.static_mode = cfg.MODEL.STATIC_MODE
 
         self.use_dir_in_world = use_dir_in_world
 

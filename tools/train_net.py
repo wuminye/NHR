@@ -35,7 +35,7 @@ torch.cuda.set_device(int(sys.argv[1]))
 # In[ ]:
  
 
-cfg.merge_from_file('../configs/config.yml')
+cfg.merge_from_file('../configs/train_mnist_softmax.yml')
 cfg.freeze()
 
 
@@ -49,7 +49,7 @@ writer = SummaryWriter(log_dir=os.path.join(output_dir,'tensorboard'))
 logger = setup_logger("rendering_model", output_dir, 0)
 logger.info("Running with config:\n{}".format(cfg))
 
-shutil.copy('../configs/config.yml', os.path.join(cfg.OUTPUT_DIR,'configs.yml'))
+shutil.copy('../configs/train_mnist_softmax.yml', os.path.join(cfg.OUTPUT_DIR,'configs.yml'))
 
 
 # In[ ]:
@@ -64,7 +64,7 @@ model = build_model(cfg)
 
 optimizer = make_optimizer(cfg, model)
 
-sscheduler = WarmupMultiStepLR(optimizer, cfg.SOLVER.STEPS, cfg.SOLVER.GAMMA, cfg.SOLVER.WARMUP_FACTOR,
+scheduler = WarmupMultiStepLR(optimizer, cfg.SOLVER.STEPS, cfg.SOLVER.GAMMA, cfg.SOLVER.WARMUP_FACTOR,
                                cfg.SOLVER.WARMUP_ITERS, cfg.SOLVER.WARMUP_METHOD)
 #scheduler = build_scheduler(optimizer, cfg.SOLVER.WARMUP_ITERS, cfg.SOLVER.START_ITERS, cfg.SOLVER.END_ITERS, cfg.SOLVER.LR_SCALE)
 

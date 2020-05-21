@@ -1,5 +1,8 @@
 # encoding: utf-8
-
+"""
+@author:  sherlock
+@contact: sherlockliao01@gmail.com
+"""
 import torch
 
 def static_collate(batch):
@@ -44,5 +47,5 @@ def static_collate(batch):
 
     imgs = torch.stack(imgs, dim=0)
 
-    return [0]*len(batch), in_points, Ks, Ts, num_points, near_far_max_splatting_size, inds, imgs, rgbs
+    return [0]*len(batch), in_points, Ks, Ts, num_points, near_far_max_splatting_size, inds, imgs, rgbs,torch.tensor(item[-1])
 

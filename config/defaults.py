@@ -30,6 +30,7 @@ _C.MODEL.UNET_LAYERS = [32, 64,128,512,512, 256,64,64,42]
 _C.MODEL.POINTNET_NPOINTS = [4096, 1024, 256, 64]
 _C.MODEL.POINTNET_RADIUS = [[0.1, 0.5], [0.5, 1.0], [1.0, 2.0], [2.0, 4.0]]
 _C.MODEL.NO_MODIFY = False
+_C.MODEL.STATIC_MODE = False
 
 # -----------------------------------------------------------------------------
 # INPUT

@@ -55,6 +55,7 @@ class IBRDynamicTotalDataset(torch.utils.data.Dataset):
         
         res = list(self.datasets[cnt].__getitem__(index,need_transform))
         res[2] = cnt
+        res.append(index)
         return tuple(res)
 
 

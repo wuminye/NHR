@@ -137,7 +137,8 @@ class IBRDynamicDataset(torch.utils.data.Dataset):
             img = torch.cat([img,img_mask[0:1,:,:]], dim=0)
 
         else:
-            img,_,_,ROI = self.transforms(img)
+            img,K,T,_,ROI = self.transforms(img,self.Ks[cam_id],self.Ts[cam_id])
+            #img = torch.cat([img,torch.ones(img[0:1,:,:].size())], dim=0)
         
         img = torch.cat([img,ROI], dim=0)
 

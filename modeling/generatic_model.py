@@ -16,6 +16,8 @@ class Generatic_Model(torch.nn.Module):
         if cfg.INPUT.RGB_MAP:
             addition = 3
 
+        self.static_mode = cfg.MODEL.STATIC_MODE
+
 
         if not use_pointnet:
             feature_dim = 3
@@ -39,7 +41,7 @@ class Generatic_Model(torch.nn.Module):
             input_channels = input_channels + 3
 
         
-        if use_pointnet:  
+        if use_pointnet and not self.static_mode:  
             if self.multiple_pointnet:
                 self.pointnets = torch.nn.ModuleList()
                 for i in range(dataset_num):
@@ -58,8 +60,10 @@ class Generatic_Model(torch.nn.Module):
 
 
         num_points = num_points.int()
+        if self.static_mode:
+            self.pcpr_parameters.setPointNum(num_points[0].item())
 
-        _,default_features = self.pcpr_parameters()
+        p_parameters, default_features = self.pcpr_parameters()
 
 
         batch_size = K.size(0)
@@ -69,7 +73,7 @@ class Generatic_Model(torch.nn.Module):
         beg = 0
 
        
-        if self.use_pointnet:
+        if self.use_pointnet and not self.static_mode:
             for i in range(batch_size):
                 
                 cur_points = in_points[beg:beg+num_points[i],:].view(1,num_points[i],3)
@@ -97,17 +101,24 @@ class Generatic_Model(torch.nn.Module):
 
 
                 beg = beg + num_points[i]
+        else:
+            for i in range(batch_size):
+                m_point_features.append(p_parameters)
 
-        if self.use_pointnet:
+        if self.use_pointnet and not self.static_mode:
             point_features = torch.cat(m_point_features, dim = 1).requires_grad_()
         else:
-            point_features = rgbs.transpose(0,1)
+            if self.static_mode:
+                point_features = torch.cat(m_point_features, dim = 1).requires_grad_()
+            else:
+                point_features = rgbs.transpose(0,1)
 
         if self.use_rgb_map:
             point_features = torch.cat([ point_features, rgbs.transpose(0,1)], dim = 0).requires_grad_()
 
         
    
+        #print(point_features.size(),default_features.size(),in_points.size())
         res,depth,features,dir_in_world, rgb = self.render(point_features, default_features,
                              in_points,
                              K, T,
