@@ -38,7 +38,7 @@ torch.cuda.set_device(int(sys.argv[1]))
 cfg.merge_from_file(os.path.join(sys.argv[2],'configs.yml'))
 
 cfg.MODEL.RESUME_EPOCH = int(sys.argv[3])
-cfg.SOLVER.CHECKPOINT_PERIOD = 1
+#cfg.SOLVER.CHECKPOINT_PERIOD = 1
 
 cfg.freeze()
 

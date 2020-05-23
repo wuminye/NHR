@@ -142,16 +142,16 @@ def create_supervised_trainer(model, optimizer, loss_fn, use_cuda=True, loss_who
         depth = depth / torch.max(depth)
 
 
+        if iters%100 ==0:
+            swriter.add_image('vis/rendered', res[0,0:3,:,:], iters)
+            swriter.add_image('vis/GT', target[0][0:3,:,:], iters)
+            swriter.add_image('vis/depth', depth[0], iters)
+            if use_mask:
+                swriter.add_image('vis/GT_Mask', target[0][3:4,:,:], iters)
+                swriter.add_image('vis/rendered_mask', render_mask, iters)
 
-        swriter.add_image('vis/rendered', res[0,0:3,:,:], iters)
-        swriter.add_image('vis/GT', target[0][0:3,:,:], iters)
-        swriter.add_image('vis/depth', depth[0], iters)
-        if use_mask:
-            swriter.add_image('vis/GT_Mask', target[0][3:4,:,:], iters)
-            swriter.add_image('vis/rendered_mask', render_mask, iters)
-
-        if engine.state.rgb_project:
-            swriter.add_image('vis/RGB_PCPR', features[0], iters)
+            if engine.state.rgb_project:
+                swriter.add_image('vis/RGB_PCPR', features[0], iters)
 
 
 
@@ -182,6 +182,7 @@ def do_train(
 
    
     checkpointer = ModelCheckpoint(output_dir, 'nr', checkpoint_period, n_saved=15, require_empty=False)
+    checkpointer._iteration = cfg.MODEL.RESUME_EPOCH
 
     checkpointer_tmp = ModelCheckpoint(output_dir, 'nr_tmp', 3000, n_saved=2, require_empty=False)
 

@@ -31,7 +31,9 @@ def build_model(cfg,isTrain= True,dataset_num_overwrite = None):
         if pretrain_model is not None:
             logger = logging.getLogger("rendering_model.train")
             logger.info("Load pretrain model {}.".format(pretrain_model))
-            model.load_state_dict(torch.load(os.path.join(cfg.OUTPUT_DIR,pretrain_model),map_location='cpu'))
+            a = torch.load(os.path.join(cfg.OUTPUT_DIR,pretrain_model),map_location='cpu')
+            model.pcpr_parameters.setPointNum(a['pcpr_parameters.p_parameters'].size(1))
+            model.load_state_dict(a)
     else:
         model = Generatic_Model(cfg, cfg.INPUT.SIZE_TEST[0], cfg.INPUT.SIZE_TEST[1],
                  cfg.MODEL.FEATURE_DIM, use_dir= cfg.INPUT.USE_DIR,dataset_num = dataset_num_overwrite, use_rgb = cfg.INPUT.USE_RGB, 
