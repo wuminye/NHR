@@ -7,6 +7,7 @@ from PIL import Image
 import torchvision
 import torch.distributions as tdist
 
+
 def merge_holes(pc1,pc2):
 
     # change point color here
@@ -123,24 +124,29 @@ class IBRDynamicDataset(torch.utils.data.Dataset):
             #img = self.transforms(img)
 
         K = self.Ks[cam_id]
+        T = self.Ts[cam_id]
 
-        if self.use_mask:
-            img_mask = Image.open(os.path.join(self.file_path,'%d/mask/img_%04d.jpg' % ( frame_id, cam_id)))
-            #if need_transform:
-            #    if img_mask.size[0]>2100:
-            #        img_mask = torchvision.transforms.functional.crop(img_mask, 0, 0, 1836, 2448)
+        if need_transform:
 
-                #img_mask = self.transforms(img_mask)
-            #print(img.size(),img_mask.size())
-            #img = torch.cat([img,img_mask[0:1,:,:]], dim=0)
-            img,K,T,img_mask, ROI = self.transforms(img,self.Ks[cam_id],self.Ts[cam_id],img_mask)
-            img = torch.cat([img,img_mask[0:1,:,:]], dim=0)
+            if self.use_mask:
+                img_mask = Image.open(os.path.join(self.file_path,'%d/mask/img_%04d.jpg' % ( frame_id, cam_id)))
+                #if need_transform:
+                #    if img_mask.size[0]>2100:
+                #        img_mask = torchvision.transforms.functional.crop(img_mask, 0, 0, 1836, 2448)
 
+                    #img_mask = self.transforms(img_mask)
+                #print(img.size(),img_mask.size())
+                #img = torch.cat([img,img_mask[0:1,:,:]], dim=0)
+                img,K,T,img_mask, ROI = self.transforms(img,self.Ks[cam_id],self.Ts[cam_id],img_mask)
+                img = torch.cat([img,img_mask[0:1,:,:]], dim=0)
+
+            else:
+                img,K,T,_,ROI = self.transforms(img,self.Ks[cam_id],self.Ts[cam_id])
+                #img = torch.cat([img,torch.ones(img[0:1,:,:].size())], dim=0)
+            
+            img = torch.cat([img,ROI], dim=0)
         else:
-            img,K,T,_,ROI = self.transforms(img,self.Ks[cam_id],self.Ts[cam_id])
-            #img = torch.cat([img,torch.ones(img[0:1,:,:].size())], dim=0)
-        
-        img = torch.cat([img,ROI], dim=0)
+            img = torchvision.transforms.functional.to_tensor(img)
 
 
         return img, self.vs[self.vs_index[frame_id]:self.vs_index[frame_id]+self.vs_num[frame_id],:], index, T, K, self.near_far_size, self.vs_rgb[self.vs_index[frame_id]:self.vs_index[frame_id]+self.vs_num[frame_id],:]
