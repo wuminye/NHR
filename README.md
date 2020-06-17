@@ -1,4 +1,4 @@
-# Multi-view Neural Human Rendering (NHR) [[Project Page]]() [[Paper]](http://openaccess.thecvf.com/content_CVPR_2020/papers/Wu_Multi-View_Neural_Human_Rendering_CVPR_2020_paper.pdf) 
+# Multi-view Neural Human Rendering (NHR) [[Paper]](http://openaccess.thecvf.com/content_CVPR_2020/papers/Wu_Multi-View_Neural_Human_Rendering_CVPR_2020_paper.pdf) 
 
 Pytorch implementation of NHR.
 
