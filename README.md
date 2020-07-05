@@ -68,4 +68,18 @@ A data folder with a structure like following:
 **3. Rendering**
 - Coming soon
 
+## Dataset
 
+sport 1, sport 2 and basketball are now released for non-commercial purposes.
+https://pan.baidu.com/s/1Dh0xltQVuFtpoB_OPd0XTg  password: zv4v
+
+## Citation
+'''
+@inproceedings{wu2020multi,
+  title={Multi-View Neural Human Rendering},
+  author={Wu, Minye and Wang, Yuehao and Hu, Qiang and Yu, Jingyi},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={1682--1691},
+  year={2020}
+}
+'''
