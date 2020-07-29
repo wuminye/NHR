@@ -1,5 +1,4 @@
 # encoding: utf-8
-=
 import os
 import torch
 from torch.utils import data
