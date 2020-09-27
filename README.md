@@ -4,7 +4,7 @@ Pytorch implementation of NHR.
 
 ![framework](docs/figures/concept.png)
 **Multi-view Neural Human Rendering** </br>
-[Minye Wu](https://github.com/wuminye), Yuehao Wang, Qiang Hu, Jingyi Yu.</br>
+[Minye Wu](https://github.com/wuminye), [Yuehao Wang](https://github.com/yuehaowang), Qiang Hu, Jingyi Yu.</br>
 In CVPR 2020.</br>
 
 ## Abstract

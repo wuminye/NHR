@@ -1,0 +1,164 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="main.css" rel="stylesheet" media="all">
+<meta name="description" content="Automatic Portrait Segmentation" />
+<meta name="keywords" content="neural rendering, opacity">
+
+
+<title>Multi-view Neural Human Rendering (NHR)</title>
+</head>
+
+<body>
+
+<div id="top_arrow" style="position: fixed; bottom: 10px; right: 10px;">
+<a href="#title">
+<img src="./figures/top_arrow.jpg" style="border: 0pt none ; width: 26px; height: 32px;"/></a>
+</div>
+
+<h2 id="title" class="auto-style1">
+<!--<img alt="" class="style4" height="135" src="figures/siga_2012.jpg" style="float: left" width="123">-->
+Multi-view Neural Human Rendering (NHR)</h2>
+<p class="auto-style7"  align="center">
+	<a href="https://github.com/wuminye" target="_blank">Minye Wu</a><sup>1,3,4</sup>
+	&nbsp;&nbsp;&nbsp;
+	<a href="https://github.com/yuehaowang" target="_blank">Yuehao Wang</a><sup>1</sup>
+	&nbsp;&nbsp;&nbsp;
+	Qiang Hu<sup>1</sup>
+	&nbsp;&nbsp;&nbsp;
+	Jingyi Yu<sup>1,2</sup>
+	&nbsp;&nbsp;&nbsp;
+</p>
+
+<p class="auto-style7"  align="center">
+<sup>1</sup> ShanghaiTech University
+&nbsp;&nbsp;&nbsp;
+<sup>2</sup> DGene Inc.
+&nbsp;&nbsp;&nbsp;
+<sup>3</sup> University of Chinese Academy of Sciences
+&nbsp;&nbsp;&nbsp;<br>
+<sup>4</sup> Shanghai Institute of Microsystem and Information Technology</p>
+<p align=left>&nbsp;</p>
+<p align="center">
+<table style="width:960px" align="center">
+
+<tr>
+	<td><img width=960 alt="" src="figures/network.png"></td>
+</tr>
+<tr>
+	<td><p class="auto-style5"> Our neural human renderer (NHR) produces photorealistic free-view-video (FVV) from multi-view dynamic human captures. NHR
+		trains on multi-view videos and is composed of three modules: feature extraction (FE), projection and rasterization
+		(PR), and rendering (RE). FE adopts PointNet++ to
+		extract features from the reconstructed models over time
+		even under strong topology/reconstruction inconsistencies
+		based on structure and semantics.
+	</p></td>
+</tr>
+</table>
+	
+
+
+<p class="auto-style5">&nbsp;</p>
+<p class="style2"><strong><span class="auto-style6">Abstract</span></strong></p>
+<p class="auto-style5">We present an end-to-end Neural Human Renderer
+	(NHR) for dynamic human captures under the multi-view
+	setting. NHR adopts PointNet++ for feature extraction (FE)
+	to enable robust 3D correspondence matching on low quality, dynamic 3D reconstructions. To render new views, we
+	map 3D features onto the target camera as a 2D feature
+	map and employ an anti-aliased CNN to handle holes and
+	noises. Newly synthesized views from NHR can be further
+	used to construct visual hulls to handle textureless and/or
+	dark regions such as black clothing. Comprehensive experiments show NHR significantly outperforms the state-ofthe-art neural and image-based rendering techniques, especially on hands, hair, nose, foot, etc.
+</p>
+
+<p class="auto-style5">&nbsp;</p>
+<p id="results", class="auto-style4"><strong>Overview</strong></p>
+<!-- <table style="width:830px" align="center">
+<tr>
+	<td width="400px"><img width="400px" alt="" src="figures/gif/Hair.gif"></td>
+
+	<td width="430px" style="text-align:right"><img width="400px" alt="" src="figures/gif/Wolf.gif"></td>
+</tr>
+
+<tr>
+	<td width="400px"><img width="400px" alt="" src="figures/gif/Humanhair.gif"></td>
+	<td width="430px" style="text-align:right"><img width="400px" alt="" src="figures/gif/Hairstyle1.gif"></td>
+</tr>
+<tr>
+	<td width="400px"><img width="400px" alt="" src="figures/gif/Hairstyle2.gif"></td>
+	<td width="430px" style="text-align:right"><img width="400px" alt="" src="figures/gif/Hairstyle3.gif"></td>
+</tr>
+<tr>
+	<td width="400px"><img width="400px" alt="" src="figures/gif/Cat.gif"></td>
+</tr>
+</table> -->
+<div>
+	<iframe width="960" height="540" src="https://www.youtube.com/embed/HJpTfPfOIxI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
+<p class="auto-style5">&nbsp;</p>
+<p id="results", class="auto-style4"><strong>Results</strong></p>
+<p class='auto-style5'>
+	All experiments are conducted on 3D dynamic human
+	data collected by a multi-camera dome system with up to
+	80 cameras arranged on a cylinder. All cameras are synchronized and capture at a resolution of 2048 × 1536 at 25
+	frames per second. In this paper, we use 5 sets of datasets
+	where the performers are in different clothing and perform
+	different actions. Video below shows our results on the 5 datasets.
+</p>
+<div>
+<iframe width="960" height="540" src="https://www.youtube.com/embed/PZyPFOKIsXA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<p class="auto-style5">&nbsp;</p>
+<p id="downloads", class="auto-style4"><strong>Citation</strong></p>
+<p>
+<pre  class="auto-style5" style="background: #EEEEEE; padding: 20px; font-family: 'Courier New', Courier, monospace;">
+@inproceedings{wu2020multi,
+   title={Multi-View Neural Human Rendering},
+   author={Wu, Minye and Wang, Yuehao and Hu, Qiang and Yu, Jingyi},
+   booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+   pages={1682--1691},
+   year={2020}
+}
+</pre>
+</p>
+
+<p class="auto-style5">&nbsp;</p>
+<p id="downloads", class="auto-style4"><strong>Downloads</strong></p>
+
+<table cellSpacing=4 cellPadding=2 border=0 style="width: 90%">
+<tr COLSPAN="2">
+	<td align="center" valign="center">
+		<img style="padding:0; clear:both; " src="figures/paper_icon.png" align="middle" alt="Snapshot for paper" class="pdf" width="200" />
+	</td>
+	<td align="left" class="auto-style5">&quot; Multi-view Neural Human Rendering &quot;<br>
+Minye Wu, Yuehao Wang, Qiang Hu, Jingyi Yu.<br>
+<i>IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2020</i><br><br>
+<img alt="" height="32" src="figures/pdf_icon.gif" width="31">&nbsp;&nbsp;[<a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Wu_Multi-View_Neural_Human_Rendering_CVPR_2020_paper.pdf">Paper (pdf, 2.1MB)</a>]&nbsp;&nbsp;
+
+<img alt="" height="32" src="figures/ppt.gif" width="31">&nbsp;&nbsp;[<a href="https://drive.google.com/file/d/1btIXS6hFKcRLHOSPzbjrG0ysJXoMExHf/view">Poster Slides (pdf, 1.3MB)</a>]<br><br> 
+
+<img alt="" height="32" src="figures/code_icon.png" width="31">&nbsp;&nbsp;[<a href="https://github.com/wuminye/NHR">Code (github)</a>]<br><br> 
+
+<img alt="" height="32" width="32" src="figures/file_icon.png">&nbsp;
+[Datasets
+	<a href="https://drive.google.com/file/d/1BnqbXXzswcDh_3VzkYz1PW6LMWVf_HNv/view?usp=sharing">sport_1(7z, 2.4GB)</a>&nbsp;
+	<a href="https://drive.google.com/file/d/1MkckRKXKtYbmg60lwKCBG3oqLqFqDJay/view?usp=sharing	">sport_2(7z, 2.7GB)</a>&nbsp;
+	<a href="https://drive.google.com/file/d/1geWcvWJGMlbCOtYHq1lAHI7RfAjFQ4_6/view?usp=sharing">sport_3(7z, 2.7GB)</a>&nbsp;
+	<a href="https://drive.google.com/file/d/1WbLYWFJZ0kRtzsPZKn6Unibe0Je9wm8r/view?usp=sharing">basketball(7z, 4.5GB)</a>&nbsp;
+	<a href="https://drive.google.com/file/d/1gtS6C4uCI_YV_AJP6xLn_dGUGhMitL9T/view?usp=sharing">dance(7z, 8.6GB)</a>]<br><br>
+</td>
+</tr>
+</table>
+<br>
+
+<p class="auto-style1" style="color: #999999">Last update: Sep. 26, 2020</p>
+
+
+</body>
+
+</html>
