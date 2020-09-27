@@ -1,0 +1,139 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="main.css" rel="stylesheet" media="all">
+<meta name="description" content="Automatic Portrait Segmentation" />
+<meta name="keywords" content="neural rendering, opacity">
+
+
+<title>Multi-view Dynamic Human Datasets</title>
+</head>
+
+<body>
+
+<div id="top_arrow" style="position: fixed; bottom: 10px; right: 10px;">
+<a href="#title">
+<img src="./figures/top_arrow.jpg" style="border: 0pt none ; width: 26px; height: 32px;"/></a>
+</div>
+
+<h2 id="title" class="auto-style1">
+<!--<img alt="" class="style4" height="135" src="figures/siga_2012.jpg" style="float: left" width="123">-->
+Multi-view Dynamic Human Datasets</h2>
+
+<!--
+<p class="auto-style7"  align="center">
+	<a href="https://github.com/wuminye" target="_blank">Minye Wu</a><sup>1,3,4</sup>
+	&nbsp;&nbsp;&nbsp;
+	<a href="https://github.com/yuehaowang" target="_blank">Yuehao Wang</a><sup>1</sup>
+	&nbsp;&nbsp;&nbsp;
+	Qiang Hu<sup>1</sup>
+	&nbsp;&nbsp;&nbsp;
+	Jingyi Yu<sup>1,2</sup>
+	&nbsp;&nbsp;&nbsp;
+</p>
+
+<p class="auto-style7"  align="center">
+<sup>1</sup> ShanghaiTech University
+&nbsp;&nbsp;&nbsp;
+<sup>2</sup> DGene Inc.
+&nbsp;&nbsp;&nbsp;
+<sup>3</sup> University of Chinese Academy of Sciences
+&nbsp;&nbsp;&nbsp;<br>
+<sup>4</sup> Shanghai Institute of Microsystem and Information Technology</p>
+<p align=left>&nbsp;</p>
+<p align="center">
+-->
+<table style="width:960px" align="center">
+
+<tr>
+	<td><img width=960 alt="" src="figures/vis.jpg"></td>
+</tr>
+<tr>
+	<td><p class="auto-style5"> In this dataset, five sequences are collected by a multi-camera dome system with up to 80 cameras arranged on a cylinder. 
+	 All cameras are synchronized, calibrated and capture at 25 frames per second. Performers are in different clothing and perform
+different actions. All sequences have a length between 8 to
+24 seconds. Specifically `sport1`, `sport2`, `sport3` correspond
+to dumbbell lifting with relatively tight clothing, `dance` contains complex and highly deformable clothing, 
+and `basketball` involves interactions between a player and a ball.
+
+	</p>
+	<p class="auto-style5"> 
+	Each sequence contains RGB images, forground masks, RGB point cloud sequence and camera calibration.  We
+use chrome key based matting followed by manual fixing to extract the ground truth masks for all views. We use one of the
+best commercial SfM software Metashape to compute the initial 3D point clouds for all frames.
+	 
+
+	</p>
+
+	<p class="auto-style5"> 
+	  Datasets are now released for non-commercial purposes. Please see <a href='#downloads'>here</a> <br>
+	  File structure is describled in <a href='https://github.com/wuminye/NHR/blob/master/README.md'>here</a>
+    </p>
+	
+	
+	</td>
+</tr>
+</table>
+	
+
+
+<p class="auto-style5">&nbsp;</p>
+<p id="results", class="auto-style4"><strong>Results</strong></p>
+<p class='auto-style5'>
+	Video below shows results on the 5 datasets. Please see <a href='index.html'>here</a> for more details. 
+</p>
+<div>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/PZyPFOKIsXA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<p class="auto-style5">&nbsp;</p>
+<p id="downloads", class="auto-style4"><strong>Citation</strong></p>
+<p>
+<pre  class="auto-style5" style="background: #EEEEEE; padding: 20px; font-family: 'Courier New', Courier, monospace;">
+@inproceedings{wu2020multi,
+   title={Multi-View Neural Human Rendering},
+   author={Wu, Minye and Wang, Yuehao and Hu, Qiang and Yu, Jingyi},
+   booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+   pages={1682--1691},
+   year={2020}
+}
+</pre>
+</p>
+
+<p class="auto-style5">&nbsp;</p>
+<p id="downloads", class="auto-style4"><strong>Downloads</strong></p>
+
+<table cellSpacing=4 cellPadding=2 border=0 style="width: 90%">
+<tr COLSPAN="2">
+	<td align="center" valign="center">
+		<img style="padding:0; clear:both; " src="figures/paper_icon.png" align="middle" alt="Snapshot for paper" class="pdf" width="200" />
+	</td>
+	<td align="left" class="auto-style5">&quot; Multi-view Neural Human Rendering &quot;<br>
+Minye Wu, Yuehao Wang, Qiang Hu, Jingyi Yu.<br>
+<i>IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2020</i><br><br>
+<img alt="" height="32" src="figures/pdf_icon.gif" width="31">&nbsp;&nbsp;[<a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Wu_Multi-View_Neural_Human_Rendering_CVPR_2020_paper.pdf">Paper (pdf, 2.1MB)</a>]&nbsp;&nbsp;
+
+<img alt="" height="32" src="figures/ppt.gif" width="31">&nbsp;&nbsp;[<a href="https://drive.google.com/file/d/1btIXS6hFKcRLHOSPzbjrG0ysJXoMExHf/view">Poster Slides (pdf, 1.3MB)</a>]<br><br> 
+
+<img alt="" height="32" src="figures/code_icon.png" width="31">&nbsp;&nbsp;[<a href="https://github.com/wuminye/NHR">Code (github)</a>]<br><br> 
+
+<img alt="" height="32" width="32" src="figures/file_icon.png">&nbsp;
+[Datasets
+	<a href="https://drive.google.com/file/d/1BnqbXXzswcDh_3VzkYz1PW6LMWVf_HNv/view?usp=sharing">sport_1(7z, 2.4GB)</a>&nbsp;
+	<a href="https://drive.google.com/file/d/1MkckRKXKtYbmg60lwKCBG3oqLqFqDJay/view?usp=sharing">sport_2(7z, 2.7GB)</a>&nbsp;
+	<a href="https://drive.google.com/file/d/1geWcvWJGMlbCOtYHq1lAHI7RfAjFQ4_6/view?usp=sharing">sport_3(7z, 2.7GB)</a>&nbsp;
+	<a href="https://drive.google.com/file/d/1WbLYWFJZ0kRtzsPZKn6Unibe0Je9wm8r/view?usp=sharing">basketball(7z, 4.5GB)</a>&nbsp;
+	<a href="https://drive.google.com/file/d/1gtS6C4uCI_YV_AJP6xLn_dGUGhMitL9T/view?usp=sharing">dance(7z, 8.6GB)</a>]<br><br>
+</td>
+</tr>
+</table>
+<br>
+
+<p class="auto-style1" style="color: #999999">Last update: Sep. 26, 2020</p>
+
+
+</body>
+
+</html>

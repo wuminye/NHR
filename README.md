@@ -1,4 +1,4 @@
-# Multi-view Neural Human Rendering (NHR) [[Paper]](http://openaccess.thecvf.com/content_CVPR_2020/papers/Wu_Multi-View_Neural_Human_Rendering_CVPR_2020_paper.pdf) 
+# Multi-view Neural Human Rendering (NHR) [[Paper]](http://openaccess.thecvf.com/content_CVPR_2020/papers/Wu_Multi-View_Neural_Human_Rendering_CVPR_2020_paper.pdf) [[Project Page]](https://wuminye.github.io/NHR/) 
 
 Pytorch implementation of NHR.
 
@@ -66,13 +66,13 @@ A data folder with a structure like following:
 - run  `cd tools && python finetune.py <gpu id> <path to checkpoint> <the number of resuming epoch>`
 
 **3. Rendering**
-- Coming soon
+- please see tools/render.ipynb
 
 ## Dataset
 
-sport 1, sport 2 and basketball are now released for non-commercial purposes.
+Datasets are now released for non-commercial purposes.
 
-https://pan.baidu.com/s/1Dh0xltQVuFtpoB_OPd0XTg  password: zv4v
+Please see our project page
 
 ## Citation
 ```
