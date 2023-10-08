@@ -74,6 +74,9 @@ Datasets are now released for non-commercial purposes.
 
 Please see our project page
 
+Now we provide camera parameter conversion code ([From Metashape](./tools/cameras_from_metashape.py))  
+
+
 ## Citation
 ```
 @inproceedings{wu2020multi,
